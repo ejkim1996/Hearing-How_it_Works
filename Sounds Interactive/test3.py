@@ -30,14 +30,15 @@ def toggle_yellow(head, color, num_pixels_yellow, strip):
     led_yellow.on()
     strip.setPixelColor(head, color) # Turn on 'head' pixel
     strip.show()
-    time.sleep(1.0 / 30)             # Pause 20 milliseconds (~50 fps)
+    time.sleep(1.0 / 30)
     
     if blue.is_pressed == True:
         strip.clear()
         led_yellow.off()
         head = 0
-        status = "blue"
-        return
+        return "main"
+    else:
+        return "yellow"
 
 def toggle_blue(head, color2, num_pixels_blue, strip):
     led_blue.on()
@@ -49,29 +50,31 @@ def toggle_blue(head, color2, num_pixels_blue, strip):
         strip.clear()
         led_blue.off()
         head = 0
-        status = "yellow"
-        return
+        return "main"
+    else:
+        return "blue"
 
-while status == "main":
-    print("main")
-    head = 0
-    if yellow.is_pressed == True:
-        status = "yellow"
-    if blue.is_pressed == True:
-        status = "blue"
-    
-while status == "yellow":
-    print("yellow")
-    toggle_yellow(head, color, num_pixels_yellow, strip)
-    head += 1
-    if head > num_pixels_yellow:
+while True:
+    if status == "main":
+        print("main")
         head = 0
-        strip.clear()
+        if yellow.is_pressed == True:
+            status = "yellow"
+        if blue.is_pressed == True:
+            status = "blue"
+        
+    if status == "yellow":
+        print("yellow")
+        status = toggle_yellow(head, color, num_pixels_yellow, strip)
+        head += 1
+        if head > num_pixels_yellow:
+            head = 0
+            strip.clear()
 
-while status == "blue":
-    print("blue")
-    toggle_blue(head, color2, num_pixels_blue, strip)
-    head += 1
-    if head > num_pixels_blue:
-        head = 0
-        strip.clear()
+    if status == "blue":
+        print("blue")
+        status = toggle_blue(head, color2, num_pixels_blue, strip)
+        head += 1
+        if head > num_pixels_blue:
+            head = 0
+            strip.clear()
