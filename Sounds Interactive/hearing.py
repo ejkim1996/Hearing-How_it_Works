@@ -12,9 +12,9 @@ speed = 50                                      #bigger values make it faster
 
 #mixer setup for audio
 mixer.init()
-sound_low_pitch = mixer.Sound("sample1.wav")
-sound_medium_pitch = mixer.Sound("sample2.wav")
-sound_high_pitch = mixer.Sound("sample3.wav")
+sound_low_pitch = mixer.Sound("FrenchHorn.wav")
+sound_medium_pitch = mixer.Sound("Sax.wav")
+sound_high_pitch = mixer.Sound("Flute.wav")
 
 #Variables for low pitch sound
 num_pixels_low_pitch = 143                      #number of lights to turn on
@@ -66,7 +66,7 @@ def light_strip(color, num_pixels, led, status, button1, button2, sound):
         tail += 1
         if head >= num_pixels: head = 0
         if tail >= num_pixels: tail = 0
-
+   
     if (mixer.get_busy() == False):
         strip.clear()
         strip.show()
